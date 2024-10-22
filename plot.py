@@ -31,7 +31,7 @@ actual_spreads = {
 }
 
 # Predicted values
-predicted_spreads = {
+predicted_spreads_rolls = {
     'CIPLA': None, 'NTPC': None, 'ASIANPAINT': 20.879601954486454, 'AXISBANK': 14.497482540082457,
     'HDFC': 8.805415000630616, 'BPCL': None, 'INFY': None, 'ACC': 9.696047304615016,
     'ICICIBANK': None, 'WIPRO': 2.2233608194203116, 'RELIANCE': None, 'BAJAJ-AUTO': 8.27896934004061,
@@ -39,12 +39,21 @@ predicted_spreads = {
     'ONGC': None, 'LT': 7.003737097673921, 'TATAMOTORS': None, 'MARUTI': 14.663105628299512
 }
 
+predicted_corwin_spreads = {
+    'LT': 0, 'JPASSOCIAT': 0, 'ASIANPAINT': 46.92591304878815, 'TCS': 10.473014333575305, 
+    'RELIANCE': 0, 'MARUTI': 18.456449810054842, 'HDFC': 7.605945704542663, 
+    'BAJAJ-AUTO': 19.993791021575852, 'ICICIBANK': 11.05478352427919, 'ITC': 0, 
+    'ONGC': 3.0285265985340177, 'IDFC': 3.577398812089482, 'CIPLA': 3.8764251390212396, 
+    'NTPC': 0.20657148517896187, 'TATAMOTORS': 2.068192308898776, 'ACC': 12.539861617562083, 
+    'BPCL': 0, 'INFY': 12.014376113098988, 'WIPRO': 1.6264615267880083, 'AXISBANK': 9.916870876507907
+}
+
 # Dictionary to store the percentage differences
 percentage_differences = {}
 
 # Loop over the actual spreads and calculate percentage difference if predicted is not None
 for stock, actual_value in actual_spreads.items():
-    predicted_value = predicted_spreads.get(stock)
+    predicted_value = predicted_corwin_spreads.get(stock)
 
     if predicted_value is not None:
         # Calculate percentage difference
@@ -74,4 +83,4 @@ for index, value in enumerate(percentages):
 
 plt.tight_layout()
 plt.show()
-plt.savefig('rolls_estimate.png')
+plt.savefig('cowins_estimate.png')

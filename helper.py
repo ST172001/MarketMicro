@@ -110,3 +110,26 @@ def get_average_bid_ask_spread(stock_symbols,dates):
             final_avg_bid_ask[symbol] = {'average_bid': None, 'average_ask': None}
 
     return final_avg_bid_ask
+
+def get_high_prices(df: pd.DataFrame, symbols: list):
+    high_prices = {}
+    for symbol in symbols:
+        df_symbol = df[df['symbol'].str.lstrip('b') == symbol]
+        if not df_symbol.empty:
+            high_price = df_symbol['trade_price'].astype(int).max() / 100.0
+            high_prices[symbol] = high_price
+        else:
+            high_prices[symbol] = None
+    return high_prices
+
+# Function to get low prices
+def get_low_prices(df: pd.DataFrame, symbols: list):
+    low_prices = {}
+    for symbol in symbols:
+        df_symbol = df[df['symbol'].str.lstrip('b') == symbol]
+        if not df_symbol.empty:
+            low_price = df_symbol['trade_price'].astype(int).min() / 100.0
+            low_prices[symbol] = low_price
+        else:
+            low_prices[symbol] = None
+    return low_prices
