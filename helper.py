@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 import pandas as pd
 from tqdm import tqdm
+import numpy as np
 def jiffies_to_date(jiffies):
  #Convert jiffies to seconds
     start_date=datetime(1980, 1, 1)
@@ -87,13 +88,21 @@ def get_closing_prices(df:pd.DataFrame,symbols:list):
         closing_prices[symbol]=closing_price/100.0
     return closing_prices
 
+def get_opening_prices(df:pd.DataFrame,symbols:list):
+    #This is teh trade book
+    opening_prices={}
+    for symbol in symbols:
+        opening_price = df[df['symbol'].str.lstrip('b') == symbol]['trade_price'].iloc[0].astype(int)
+        opening_prices[symbol]=opening_price/100.0
+    return opening_prices
+
 def get_average_bid_ask_spread(stock_symbols,dates):
     cumulative_bid = {symbol: 0 for symbol in stock_symbols}
     cumulative_ask = {symbol: 0 for symbol in stock_symbols}
     count = {symbol: 0 for symbol in stock_symbols}
     for date in dates:
         df=pd.read_csv(f'CASH_Orders_{date}122012.csv')
-        bid_frequencies,ask_frequencies,avg_bid_ask=get_quoted_bid_ask_spread(df,stock_symbols,frequency=50)
+        bid_frequencies,ask_frequencies,avg_bid_ask=get_quoted_bid_ask_spread(df,stock_symbols,frequency=375)
         for symbol in stock_symbols:
             if symbol in avg_bid_ask:
                     if avg_bid_ask[symbol]['average_bid'] is not None and avg_bid_ask[symbol]['average_ask'] is not None:
@@ -133,3 +142,14 @@ def get_low_prices(df: pd.DataFrame, symbols: list):
         else:
             low_prices[symbol] = None
     return low_prices
+
+def get_volume(df: pd.DataFrame, symbols: list):
+    volumes = {}
+    for symbol in symbols:
+        df_symbol = df[df['symbol'].str.lstrip('b') == symbol]
+        if not df_symbol.empty:
+            volume = np.log(df_symbol['trade_quantity'].astype(int)).sum()
+            volumes[symbol] = volume
+        else:
+            volumes[symbol] = None
+    return volumes
