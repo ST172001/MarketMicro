@@ -73,7 +73,7 @@ def get_quoted_bid_ask_spread(df:pd.DataFrame,symbols:list,frequency: int):
             avg_bid_ask_spreads[symbol] = {'average_bid': avg_bid, 'average_ask': avg_ask}
         else:
             avg_bid_ask_spreads[symbol] = {'average_bid': None, 'average_ask': None}  # Handle cases where no valid intervals
-    return bid_frquencies,ask_frquencies,avg_bid_ask_spreads
+    return start_jiffy,end_jiffy,bid_frquencies,ask_frquencies,avg_bid_ask_spreads
 
 def read_txt_file(file_path):
     with open(file_path, 'r') as file:

@@ -48,18 +48,38 @@ predicted_corwin_spreads = {
     'BPCL': 0, 'INFY': 12.014376113098988, 'WIPRO': 1.6264615267880083, 'AXISBANK': 9.916870876507907
 }
 
+predicted_abdi_spreads = {
+    'LT': 0, 'JPASSOCIAT': 0, 'ASIANPAINT': 45.3, 'TCS': 9.8,
+    'RELIANCE': 0, 'MARUTI': 17.5, 'HDFC': 7.1,
+    'BAJAJ-AUTO': 18.5, 'ICICIBANK': 10.5, 'ITC': 0,
+    'ONGC': 2.9, 'IDFC': 3.4, 'CIPLA': 3.7,
+    'NTPC': 0.18, 'TATAMOTORS': 1.95, 'ACC': 12.0,
+    'BPCL': 0, 'INFY': 11.4, 'WIPRO': 1.5, 'AXISBANK': 9.5
+}
+
+predicted_dai_spreads = {
+    'LT': 0, 'JPASSOCIAT': 0, 'ASIANPAINT': 42.0, 'TCS': 8.2,
+    'RELIANCE': 0, 'MARUTI': 15.8, 'HDFC': 5.8,
+    'BAJAJ-AUTO': 16.8, 'ICICIBANK': 9.0, 'ITC': 0,
+    'ONGC': 1.7, 'IDFC': 2.2, 'CIPLA': 2.5,
+    'NTPC': 0.12, 'TATAMOTORS': 1.2, 'ACC': 10.5,
+    'BPCL': 0, 'INFY': 9.9, 'WIPRO': 1.1, 'AXISBANK': 8.0
+}
+
+
 # Dictionary to store the percentage differences
 percentage_differences = {}
 
 # Loop over the actual spreads and calculate percentage difference if predicted is not None
 for stock, actual_value in actual_spreads.items():
-    predicted_value = predicted_corwin_spreads.get(stock)
+    predicted_value = predicted_dai_spreads.get(stock)
 
     if predicted_value is not None:
         # Calculate percentage difference
         average_value = (avg_bid_ask_spreads[stock]['average_bid']+avg_bid_ask_spreads[stock]['average_ask'])/ 2
         percentage_diff = (abs(actual_value - predicted_value) / average_value) * 100
         percentage_differences[stock] = percentage_diff
+
 
 # Print the percentage differences for each stock
 for stock, percentage_diff in percentage_differences.items():
@@ -83,4 +103,4 @@ for index, value in enumerate(percentages):
 
 plt.tight_layout()
 plt.show()
-plt.savefig('cowins_estimate.png')
+plt.savefig('dai_estimate.png')

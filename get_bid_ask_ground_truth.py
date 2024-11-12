@@ -8,8 +8,8 @@ def get_average_bid_ask_spread(stock_symbols,dates):
     cumulative_ask = {symbol: 0 for symbol in stock_symbols}
     count = {symbol: 0 for symbol in stock_symbols}
     for date in dates:
-        # df=pd.read_csv(f'CASH_Orders_{date}122012.csv')
-        df=pd.read_csv('sample.csv')
+        df=pd.read_csv(f'CASH_Orders_{date}122012.csv')
+        # df=pd.read_csv('sample.csv')
         bid_frequencies,ask_frequencies,avg_bid_ask=hp.get_quoted_bid_ask_spread(df,stock_symbols,frequency=50)
         for symbol in stock_symbols:
             if symbol in avg_bid_ask:
